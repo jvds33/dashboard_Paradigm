@@ -392,6 +392,25 @@ if st.session_state.plots_generated and st.session_state.plot_paths:
                                         index=(st.session_state.df_columns.index(default_col) if default_col in st.session_state.df_columns else 0),
                                         key=f"col_{plot_key}"
                                     )
+
+                                # Priority matrix specific controls: custom quadrant lines
+                                vgrid_input = None
+                                hgrid_input = None
+                                if plot_key == 'priority_matrix':
+                                    current_v = st.session_state.customizations.get(plot_key, {}).get('vertical_grid_position', "")
+                                    current_h = st.session_state.customizations.get(plot_key, {}).get('horizontal_grid_position', "")
+                                    vgrid_input = st.text_input(
+                                        "Vertical grid position (% mentioned)",
+                                        value=str(current_v) if current_v != None and current_v != "None" else "",
+                                        help="Leave blank to auto-use global mean of % mentioned",
+                                        key=f"vgrid_{plot_key}"
+                                    )
+                                    hgrid_input = st.text_input(
+                                        "Horizontal grid position (avg NPS)",
+                                        value=str(current_h) if current_h != None and current_h != "None" else "",
+                                        help="Leave blank to auto-use global mean of average NPS",
+                                        key=f"hgrid_{plot_key}"
+                                    )
                                 
                                 # Save changes
                                 if st.button("✅ Apply", key=f"apply_{plot_key}"):
@@ -402,6 +421,23 @@ if st.session_state.plots_generated and st.session_state.plot_paths:
                                     st.session_state.customizations[plot_key]['height'] = float(height)
                                     if plot_key in supports_column and selected_column:
                                         st.session_state.customizations[plot_key]['column'] = selected_column
+                                    # Save priority matrix grid overrides (optional)
+                                    if plot_key == 'priority_matrix':
+                                        # Reset to auto if left blank
+                                        if vgrid_input is not None and vgrid_input.strip() == "":
+                                            st.session_state.customizations[plot_key].pop('vertical_grid_position', None)
+                                        else:
+                                            try:
+                                                st.session_state.customizations[plot_key]['vertical_grid_position'] = float(vgrid_input)
+                                            except Exception:
+                                                pass
+                                        if hgrid_input is not None and hgrid_input.strip() == "":
+                                            st.session_state.customizations[plot_key].pop('horizontal_grid_position', None)
+                                        else:
+                                            try:
+                                                st.session_state.customizations[plot_key]['horizontal_grid_position'] = float(hgrid_input)
+                                            except Exception:
+                                                pass
                                     
                                     # Regenerate plots with customizations
                                     try:

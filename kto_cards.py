@@ -1466,6 +1466,20 @@ def get_custom_params(plot_key: str, customizations: Optional[Dict] = None) -> D
             result['figsize'] = (float(params['width']), float(params['height']))
         if 'column' in params and params['column']:
             result['column'] = params['column']
+        # Priority matrix custom quadrant lines
+        if plot_key == "priority_matrix":
+            v = params.get('vertical_grid_position')
+            h = params.get('horizontal_grid_position')
+            try:
+                if v is not None and v != "":
+                    result['vertical_grid_position'] = float(v)
+            except Exception:
+                pass
+            try:
+                if h is not None and h != "":
+                    result['horizontal_grid_position'] = float(h)
+            except Exception:
+                pass
     return result
 
 
