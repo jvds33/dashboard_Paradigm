@@ -11,12 +11,9 @@ def main():
     dashboard_path = Path(__file__).parent / "dashboard.py"
     
     try:
-        # Run streamlit with the dashboard
+        # Run streamlit with the dashboard (using safe defaults)
         subprocess.run([
-            sys.executable, "-m", "streamlit", "run", str(dashboard_path),
-            "--server.headless", "false",
-            "--server.enableCORS", "false",
-            "--server.enableXsrfProtection", "false"
+            sys.executable, "-m", "streamlit", "run", str(dashboard_path)
         ], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running dashboard: {e}")

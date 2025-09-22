@@ -11,6 +11,28 @@ import shutil
 # Import the plotting functions from kto_cards.py
 from kto_cards import run_all
 
+def cleanup_temp_artifacts():
+    """Cleanup temporary Excel file and output directory from session state."""
+    # Remove uploaded Excel file
+    try:
+        p = st.session_state.get("excel_temp_path")
+        if p and os.path.exists(p):
+            os.unlink(p)
+    except Exception:
+        pass
+    finally:
+        st.session_state.excel_temp_path = None
+
+    # Remove temporary output directory
+    try:
+        d = st.session_state.get("temp_output_dir")
+        if d and os.path.isdir(d):
+            shutil.rmtree(d, ignore_errors=True)
+    except Exception:
+        pass
+    finally:
+        st.session_state.temp_output_dir = None
+
 def create_download_zip(plot_paths, label_name):
     """Create a ZIP file containing all plots in a folder named after the label."""
     zip_buffer = io.BytesIO()
@@ -96,6 +118,22 @@ st.markdown("Upload your Excel file, select a sheet and label, and generate comp
 with st.sidebar:
     st.header("🔧 Configuration")
     
+    # Privacy notice
+    st.info("🔒 **Privacy**: Uploaded bestanden worden tijdelijk lokaal opgeslagen en automatisch opgeruimd na download.")
+    
+    # Cleanup controls
+    st.session_state.auto_cleanup = st.checkbox(
+        "Auto-cleanup na download", 
+        value=st.session_state.auto_cleanup,
+        help="Verwijder tijdelijke bestanden automatisch na het downloaden van plots"
+    )
+    
+    if st.button("🧹 Opruimen nu", help="Verwijder alle tijdelijke bestanden direct"):
+        cleanup_temp_artifacts()
+        st.success("✅ Tijdelijke bestanden zijn opgeruimd!")
+    
+    st.markdown("---")
+    
     # File upload
     uploaded_file = st.file_uploader(
         "Choose an Excel file",
@@ -126,10 +164,21 @@ with st.sidebar:
         st.session_state.temp_output_dir = None
     if 'edit_open' not in st.session_state:
         st.session_state.edit_open = {}
+    if 'auto_cleanup' not in st.session_state:
+        st.session_state.auto_cleanup = True
 
 # Main content
 if uploaded_file is not None:
     try:
+        # Cleanup any existing temp_output_dir before new upload (best-effort)
+        try:
+            d = st.session_state.get("temp_output_dir")
+            if d and os.path.isdir(d):
+                shutil.rmtree(d, ignore_errors=True)
+                st.session_state.temp_output_dir = None
+        except Exception:
+            pass
+        
         # Save uploaded file to temporary location
         with tempfile.NamedTemporaryFile(delete=False, suffix='.xlsx') as tmp_file:
             tmp_file.write(uploaded_file.getvalue())
@@ -488,7 +537,7 @@ if st.session_state.plots_generated and st.session_state.plot_paths:
             safe_label = "".join(c for c in st.session_state.selected_label if c.isalnum() or c in (' ', '-', '_')).strip()
             safe_label = safe_label.replace(' ', '_')
             
-            st.download_button(
+            download_clicked = st.download_button(
                 label="📥 Download All Plots",
                 data=zip_data,
                 file_name=f"KTO_Dashboard_{safe_label}.zip",
@@ -496,6 +545,10 @@ if st.session_state.plots_generated and st.session_state.plot_paths:
                 help=f"Download all plots in a ZIP file with folder structure: {st.session_state.selected_label}/",
                 type="primary"
             )
+            
+            # Auto-cleanup after download if enabled (best-effort)
+            if download_clicked and st.session_state.get("auto_cleanup"):
+                cleanup_temp_artifacts()
             
             st.info(f"📁 **{len(st.session_state.plot_paths)}** plots will be downloaded in folder: `{st.session_state.selected_label}/`")
             
