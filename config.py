@@ -31,4 +31,5 @@ def get_azure_deployment():
 
 def get_azure_model():
     """Returns the Azure OpenAI model name."""
+    
     return AZURE_OPENAI_MODEL
