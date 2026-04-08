@@ -11,7 +11,6 @@ import { PARADIGMA } from '../theme.js';
  *   themes: [{ rank, subtheme, main_theme, count, percent, quotes,
  *              nps_score, n_nps }]
  *   n:      number of respondents whose open answers were classified
- *   n_total?: optional total respondents (for context)
  */
 export default function TopThemesEditorial({ themes = [], n = 0 }) {
   if (!themes.length) {
@@ -154,7 +153,7 @@ function ThemeRow({ theme }) {
           className="text-[9px] text-center"
           style={{ color: PARADIGMA.muted }}
         >
-          n={n_nps ?? '–'}
+          {hasNps ? `n=${n_nps ?? '–'}` : 'n.v.t.'}
         </div>
       </div>
     </div>
