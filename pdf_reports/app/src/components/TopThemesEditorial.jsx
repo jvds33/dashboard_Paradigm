@@ -91,7 +91,7 @@ function ThemeRow({ theme }) {
       <div className="flex-1 min-w-0 flex flex-col py-4 px-5">
         <div className="min-w-0 flex items-baseline gap-3">
           <h3
-            className="text-[22px] font-bold leading-tight truncate"
+            className="text-[18px] font-bold leading-tight truncate"
             style={{ color: PARADIGMA.primary }}
             title={subtheme}
           >
