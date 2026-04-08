@@ -25,12 +25,14 @@ export default function TopThemesPage({ page, blockComponents }) {
 
       <div className="shrink-0">
         <MethodologyCallout title="Hoe deze thema's tot stand kwamen">
-          respondenten kregen de NPS-vraag <em>“Hoe waarschijnlijk is het dat u
-          Immediator aanbeveelt bij collega's en zakenrelaties?”</em> en konden
-          hun antwoord toelichten. Die open toelichtingen zijn met behulp van
-          een tekstmodel automatisch ingedeeld in hoofd- en subthema's, zodat
-          zichtbaar wordt waar respondenten het vaakst op terugkomen en waar
-          gericht op gestuurd kan worden. Op basis van{' '}
+          respondenten konden hun antwoord op de NPS-vraag{' '}
+          <em>“Hoe waarschijnlijk is het dat u Immediator aanbeveelt bij
+          collega's en zakenrelaties?”</em> toelichten. Een tekstmodel deelt
+          die toelichtingen in hoofd- en subthema's in; de subthema's hieronder
+          staan in volgorde van hoe vaak ze genoemd zijn. Per subthema tonen we
+          drie representatieve quotes en de gemiddelde NPS van respondenten die
+          het thema noemden, zodat je het sentiment rondom dat onderwerp kunt
+          aflezen. Op basis van{' '}
           <span className="font-semibold">{n}</span> toelichtingen.
         </MethodologyCallout>
       </div>
