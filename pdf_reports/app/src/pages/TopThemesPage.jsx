@@ -18,7 +18,6 @@ export default function TopThemesPage({ page, blockComponents }) {
   const block = (page.blocks || []).find((b) => b.type === 'top_themes');
   const Renderer = block ? blockComponents['top_themes'] : null;
   const n = block?.n ?? 0;
-  const nTotal = block?.n_total ?? 0;
 
   return (
     <div className="flex flex-col h-full">
@@ -32,8 +31,7 @@ export default function TopThemesPage({ page, blockComponents }) {
           een tekstmodel automatisch ingedeeld in hoofd- en subthema's, zodat
           zichtbaar wordt waar respondenten het vaakst op terugkomen en waar
           gericht op gestuurd kan worden. Op basis van{' '}
-          <span className="font-semibold">{n}</span> van{' '}
-          <span className="font-semibold">{nTotal}</span> toelichtingen.
+          <span className="font-semibold">{n}</span> toelichtingen.
         </MethodologyCallout>
       </div>
 

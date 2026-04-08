@@ -47,17 +47,17 @@ function ThemeRow({ theme }) {
   return (
     <div
       className="flex items-stretch rounded-2xl border border-brand-line bg-brand-bg overflow-hidden"
-      style={{ minHeight: 184 }}
+      style={{ minHeight: 148 }}
     >
       {/* Left column — count stat */}
       <div
-        className="shrink-0 flex flex-col justify-center px-4 py-4 border-r border-brand-line"
-        style={{ width: 150 }}
+        className="shrink-0 flex flex-col justify-center px-4 py-3 border-r border-brand-line"
+        style={{ width: 140 }}
       >
         <div
           className="font-extrabold leading-none tracking-tight"
           style={{
-            fontSize: 48,
+            fontSize: 40,
             color: PARADIGMA.primary,
             fontVariantNumeric: 'tabular-nums',
           }}
@@ -65,13 +65,13 @@ function ThemeRow({ theme }) {
           {count}×
         </div>
         <div
-          className="mt-2 text-[10px] leading-snug"
+          className="mt-1.5 text-[10px] leading-snug"
           style={{ color: PARADIGMA.muted }}
         >
           genoemd binnen open antwoorden van jouw locatie
         </div>
         <div
-          className="mt-3 h-1.5 w-full rounded-full overflow-hidden"
+          className="mt-2 h-1.5 w-full rounded-full overflow-hidden"
           style={{ background: PARADIGMA.surface }}
         >
           <div
@@ -88,17 +88,17 @@ function ThemeRow({ theme }) {
       </div>
 
       {/* Middle column — title + three quotes */}
-      <div className="flex-1 min-w-0 flex flex-col py-4 px-5">
+      <div className="flex-1 min-w-0 flex flex-col py-3 px-4">
         <div className="min-w-0 flex items-baseline gap-3">
           <h3
-            className="text-[18px] font-bold leading-tight truncate"
+            className="text-[16px] font-bold leading-tight truncate"
             style={{ color: PARADIGMA.primary }}
             title={subtheme}
           >
             {subtheme}
           </h3>
           <div
-            className="shrink-0 text-[12px] font-medium leading-tight truncate"
+            className="shrink-0 text-[11px] font-medium leading-tight truncate"
             style={{ color: PARADIGMA.muted }}
             title={main_theme}
           >
@@ -107,13 +107,13 @@ function ThemeRow({ theme }) {
         </div>
 
         <div
-          className="h-[2px] mt-3 mb-3 rounded-full"
+          className="h-[2px] mt-2 mb-2 rounded-full"
           style={{
             background: `linear-gradient(90deg, ${PARADIGMA.accent} 0%, transparent 60%)`,
           }}
         />
 
-        <div className="grid grid-cols-3 gap-3 flex-1 min-h-0">
+        <div className="grid grid-cols-3 gap-2 flex-1 min-h-0">
           {[0, 1, 2].map((i) => {
             const q = quotes[i];
             if (!q) {
@@ -126,20 +126,20 @@ function ThemeRow({ theme }) {
 
       {/* Right column — NPS circle */}
       <div
-        className="shrink-0 flex flex-col items-center justify-center px-3 py-4 border-l border-brand-line"
-        style={{ width: 110 }}
+        className="shrink-0 flex flex-col items-center justify-center px-3 py-3 border-l border-brand-line"
+        style={{ width: 96 }}
       >
         <div
           className="flex items-center justify-center rounded-full"
           style={{
-            width: 80,
-            height: 80,
+            width: 64,
+            height: 64,
             background: npsClr,
           }}
         >
           <div
             className="font-extrabold leading-none tabular-nums"
-            style={{ fontSize: 26, color: '#FFFFFF' }}
+            style={{ fontSize: 22, color: '#FFFFFF' }}
           >
             {npsLabel}
           </div>
@@ -164,19 +164,19 @@ function ThemeRow({ theme }) {
 function QuoteCell({ quote }) {
   return (
     <div
-      className="relative rounded-lg bg-brand-surface border border-brand-line px-3 py-2 flex items-center"
-      style={{ minHeight: 56 }}
+      className="relative rounded-lg bg-brand-surface border border-brand-line px-2.5 py-1.5 flex items-center"
+      style={{ minHeight: 44 }}
     >
       <span
         aria-hidden
-        className="absolute -top-1 left-2 text-[28px] leading-none font-serif select-none"
+        className="absolute -top-1 left-2 text-[24px] leading-none font-serif select-none"
         style={{ color: PARADIGMA.accent }}
       >
         “
       </span>
       <p
-        className="text-[10px] leading-snug italic text-brand-ink pl-3 line-clamp-4"
-        style={{ display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+        className="text-[10px] leading-snug italic text-brand-ink pl-3 line-clamp-3"
+        style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
       >
         {quote}
       </p>
