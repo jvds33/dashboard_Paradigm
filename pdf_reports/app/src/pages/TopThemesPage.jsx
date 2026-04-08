@@ -32,8 +32,9 @@ export default function TopThemesPage({ page, blockComponents }) {
           staan in volgorde van hoe vaak ze genoemd zijn. Per subthema tonen we
           drie representatieve quotes en de gemiddelde NPS van respondenten die
           het thema noemden, zodat je het sentiment rondom dat onderwerp kunt
-          aflezen. Op basis van{' '}
-          <span className="font-semibold">{n}</span> toelichtingen.
+          aflezen. Zo zie je in één oogopslag welke thema's het meeste impact
+          hebben op je NPS. Deze analyse is gedaan op basis van{' '}
+          <span className="font-semibold">{n}</span> open antwoorden.
         </MethodologyCallout>
       </div>
 
