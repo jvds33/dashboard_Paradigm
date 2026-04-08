@@ -1,12 +1,15 @@
 import { PARADIGMA } from '../theme.js';
 
 /**
- * Editorial top-themes list. Renders an ordered, numbered vertical stack of
- * subtheme rows. Each row has a large rank number, the subtheme name, the
- * parent main category, a "% mentioned" badge and three quote bubbles.
+ * Editorial top-themes list. Renders a vertical stack of subtheme rows.
+ * Each row is a three-column card: a count-stat column on the left
+ * (big `count×` number + percent-of-responses bar), a middle column with
+ * the subtheme title and three quote bubbles, and an NPS circle on the
+ * right colored by the mean NPS score for that subtheme.
  *
  * Props:
- *   themes: [{ rank, subtheme, main_theme, count, percent, quotes }]
+ *   themes: [{ rank, subtheme, main_theme, count, percent, quotes,
+ *              nps_score, n_nps }]
  *   n:      number of respondents whose open answers were classified
  *   n_total?: optional total respondents (for context)
  */
@@ -39,12 +42,12 @@ function ThemeRow({ theme }) {
   const { subtheme, main_theme, count, percent, quotes = [], nps_score, n_nps } = theme;
   const hasNps = nps_score !== null && nps_score !== undefined;
   const npsClr = hasNps ? npsColor(nps_score) : PARADIGMA.muted;
-  const npsLabel = hasNps ? (nps_score > 0 ? `+${nps_score}` : `${nps_score}`) : '–';
+  const npsLabel = hasNps ? (nps_score > 0 ? `+${nps_score}` : `${nps_score}`) : '—';
   const pct = Math.max(0, Math.min(100, Number(percent) || 0));
 
   return (
     <div
-      className="relative flex items-stretch rounded-2xl border border-brand-line bg-brand-bg overflow-hidden"
+      className="flex items-stretch rounded-2xl border border-brand-line bg-brand-bg overflow-hidden"
       style={{ minHeight: 184 }}
     >
       {/* Left column — count stat */}
