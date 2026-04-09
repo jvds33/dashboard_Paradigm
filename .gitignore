@@ -6,3 +6,26 @@ uv.lock
 .env
 .env.local
 .env.*.local
+# Data files
+*.xlsx
+*.xls
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.sav
+*.dta
+*.sas7bdat
+*.jsonl
+*.h5
+*.hdf5
+*.db
+*.sqlite
+
+# pdf_reports (new pipeline)
+pdf_reports/app/node_modules/
+pdf_reports/app/dist/
+pdf_reports/app/output/
+# Generated report data — contains respondent quotes/names. Rebuild locally
+# from the source Excel (see pdf_reports/README.md).
+pdf_reports/app/public/data/*.json
